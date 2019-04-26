@@ -16,9 +16,14 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
-      "eslint --fix", 
-      "git add"
+      "pretty-quick --staged",
+      "eslint --fix"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
