@@ -20,11 +20,6 @@
       "eslint --fix"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
