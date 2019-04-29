@@ -17,10 +17,11 @@ module.exports = {
         'singleQuote': true,
         'trailingComma': 'es5'
       }],
-    },
+  },
+    "parser": "babel-eslint",
     'parserOptions': {
       'ecmaFeatures': {
-        'jsx': true,
+        "jsx": true
       }
     }
   }
