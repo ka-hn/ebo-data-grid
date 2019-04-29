@@ -1,41 +1,33 @@
 import React, { Component } from 'react';
 import './App.css';
 import TableHeader from '../components/TableHeader';
-import TableTitle from '../components/TableTitle';
-import SearchBox from '../components/SearchBox';
-import TableRows from '../components/TableRows';
+import TableTop from '../components/TableTop';
+import Table from '../components/Table';
 import Scroll from '../components/Scroll';
+import TestData from '../dev/testdata-markers-sisab'
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       headers: [],
-      rows: [],
+      data: [],
       searchfield: '',
     };
   }
 
   componentDidMount() {
     const headers = [
-      { label: 'Fast.nr', id: 'markerid' },
+      { label: 'Fast.nr', id: 'id' },
       { label: 'Namn / kvarter', id: 'title' },
-      { label: 'Adress', id: 'addressFull' },
+      { label: 'Adress', id: 'address' },
       { label: 'FO', id: 'district' },
       { label: 'Verksamhet', id: 'type' },
     ];
 
-    const rows = [
-      {
-        markerid: 'FS0010',
-        title: 'Askebyskolan',
-        addressFull: 'Askebykroken 22, 163 70, Spånga',
-        district: 'FO5',
-        type: 'Skola',
-      },
-    ];
+    const data = TestData;
 
-    this.setState({ headers, rows });
+    this.setState({ headers, data });
   }
 
   onSearchChange = event => {
@@ -45,22 +37,19 @@ class App extends Component {
   render() {
     const title = 'EBO Data Grid';
 
-    const { rows, searchfield, headers } = this.state;
-    const filteredRows = rows.filter(row => {
-      return row.title.toLowerCase().includes(searchfield.toLowerCase());
+    const { headers, data, searchfield } = this.state;
+    const filteredData = data.filter(object => {
+      return object.title.toLowerCase().includes(searchfield.toLowerCase());
     });
 
-    return !rows.length ? (
+    return !data.length ? (
       <h1>Loading</h1>
     ) : (
       <div className="App">
-        <div className="TableTop">
-          <TableTitle title={title} />
-          <SearchBox searchChange={this.onSearchChange} />
-        </div>
+        <TableTop title={title} searchChange={this.onSearchChange} />
         <TableHeader headers={headers} />
         <Scroll>
-          <TableRows rows={filteredRows} />
+          <Table data={filteredData} />
         </Scroll>
       </div>
     );
