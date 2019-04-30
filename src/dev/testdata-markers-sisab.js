@@ -7,26 +7,6 @@ const testDataMarkers = [
         "postaltown": "Spånga",
         "postalnumber": "163 70",
         "type": "Skola",
-        "indoorTemperature": "15",
-        "districtHeatingPower": "0",
-        "energyRating": "0",
-        "coordinates": {
-            "lat": 59.3916689,
-            "lng": 17.9265531
-        },
-        "tags": [
-            "FO5",
-            "Connected"
-        ],
-        "markerid": "FS0010",
-        "sbolink": "0010.Link"
-    },
-    {
-        "title": "Askebyskolan",
-        "adress": "Askebykroken 22",
-        "postaltown": "Spånga",
-        "postalnumber": "163 70",
-        "type": "Skola",
         "indoorTemperature": "16",
         "districtHeatingPower": "0",
         "energyRating": "0",
