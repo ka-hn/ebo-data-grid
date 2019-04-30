@@ -1,9 +1,70 @@
-h1 {
-  font-size: "18px";
+body {
+  background: #e2e9ef;
+  font-size: 18px;
+  font-family: Arial,sans-serif;
+  color: #304760;
 }
 
-#div {
-  border: 1px solid black;
-  height: 20px;
-  width: 20px;
+.tabletop {
+  background: #007bc8;
+  color: #fff;
+  display: flex;
+  align-items: baseline;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.project-title {
+  padding-left: 20px;
+}
+
+.searchbox {
+  padding-right: 20px;
+}
+
+.searchfield {
+  border-radius: 13px;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+}
+
+.table {
+  background: #f8f9fb;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.tableheader {
+  background: #e2e9ef;
+  display: flex;
+  position: sticky;
+  top: 0;
+  font-weight: bold;
+}
+
+.tableheadercolumn {
+  flex: 1;
+  padding: 5px;
+}
+
+.tablebody {
+  display: flex;
+  flex-direction: column;
+}
+
+.tablerow {
+  display: flex;
+  border-bottom: 1px solid white;
+}
+
+.tablecell {
+  flex:1;
+  padding: 5px;
 }
