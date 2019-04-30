@@ -1,17 +1,18 @@
 body {
   background: #e2e9ef;
-  font-size: 18px;
+  font-size: 15px;
   font-family: Arial,sans-serif;
   color: #304760;
 }
 
 .tabletop {
-  background: #007bc8;
+  background: #70e07c;
   color: #fff;
   display: flex;
   align-items: baseline;
   flex-direction: row;
   justify-content: space-between;
+  height: 70px;
 }
 
 .project-title {
@@ -27,6 +28,13 @@ body {
   padding: 5px 10px;
   border: none;
   outline: none;
+  width: 27px;
+  transition: all .3s cubic-bezier(.165,.84,.44,1);
+}
+
+.searchfield:focus {  
+  width: 160px;
+  transition: all .3s cubic-bezier(.165,.84,.44,1);
 }
 
 .table {
@@ -34,7 +42,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: auto;
-  top: 80px;
+  top: 70px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -47,6 +55,7 @@ body {
   position: sticky;
   top: 0;
   font-weight: bold;
+  border-bottom: 1px solid white;
 }
 
 .tableheadercolumn {
@@ -62,6 +71,7 @@ body {
 .tablerow {
   display: flex;
   border-bottom: 1px solid white;
+  align-items: center;
 }
 
 .tablecell {

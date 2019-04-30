@@ -6,7 +6,7 @@ const SearchBox = ({ searchChange }) => {
     <div className="searchbox">
       <input
         className="searchfield"
-        placeholder="Sök fastigheter"
+        placeholder="Sök"
         onChange={searchChange}
       />
     </div>
