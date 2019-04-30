@@ -1,14 +1,14 @@
 import React from 'react';
 
-const TableRow = ({ i, id, title, address, type }) => {
-    
+const TableRow = ({ id, title, address, district, type }) => {
   return (
-    <tr className={`tablerow ${i}`}>
-      <td className="tablecell">{id}</td>
-      <td className="tablecell">{title}</td>
-      <td className="tablecell">{address}</td>
-      <td className="tablecell">{type}</td>
-    </tr>
+    <div className="tablerow">
+      <div className="tablecell">{id}</div>
+      <div className="tablecell">{title}</div>
+      <div className="tablecell">{address}</div>
+      <div className="tablecell">{district}</div>
+      <div className="tablecell">{type}</div>
+    </div>
   );
 };
 
