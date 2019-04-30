@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import SearchBox from './SearchBox'
+import SearchBox from './SearchBox';
 
-const TableTop = ({ title, searchChange}) => {
+const TableTop = ({ title, searchChange }) => {
   return (
-    <div>
-      <h1>{title}</h1>
+    <div className="tabletop">
+      <h2 className="project-title">{title}</h2>
       <SearchBox searchChange={searchChange} />
     </div>
   );
