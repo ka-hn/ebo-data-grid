@@ -3,8 +3,7 @@ import './App.css';
 import TableHeader from '../components/TableHeader';
 import TableTop from '../components/TableTop';
 import Table from '../components/Table';
-import Scroll from '../components/Scroll';
-import TestData from '../dev/testdata-markers-sisab'
+import TestData from '../dev/testdata-markers-sisab';
 
 class App extends Component {
   constructor() {
@@ -25,7 +24,17 @@ class App extends Component {
       { label: 'Verksamhet', id: 'type' },
     ];
 
-    const data = TestData;
+    const data = TestData.map(marker => {
+      return {
+        id: marker.markerid,
+        title: marker.title,
+        address: `${marker.adress}, ${marker.postalnumber}, ${
+          marker.postaltown
+        } `,
+        district: marker.tags[0],
+        type: marker.type,
+      };
+    });
 
     this.setState({ headers, data });
   }
@@ -38,19 +47,22 @@ class App extends Component {
     const title = 'EBO Data Grid';
 
     const { headers, data, searchfield } = this.state;
+
     const filteredData = data.filter(object => {
-      return object.title.toLowerCase().includes(searchfield.toLowerCase());
+      return JSON.stringify(object)
+        .toLowerCase()
+        .includes(searchfield.toLowerCase());
     });
 
     return !data.length ? (
       <h1>Loading</h1>
     ) : (
-      <div className="App">
+      <div className="app">
         <TableTop title={title} searchChange={this.onSearchChange} />
-        <TableHeader headers={headers} />
-        <Scroll>
+        <div className="table">
+          <TableHeader headers={headers} />
           <Table data={filteredData} />
-        </Scroll>
+        </div>
       </div>
     );
   }
