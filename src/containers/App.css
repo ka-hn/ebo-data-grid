@@ -15,6 +15,14 @@ body {
   height: 70px;
 }
 
+.sortarrow {
+  display: none;
+  justify-content: center;
+	align-items: center;
+  transition: transform .5s cubic-bezier(.075,.82,.165,1);
+  margin-left: 5px;
+}
+
 .project-title {
   padding-left: 20px;
 }
@@ -59,8 +67,18 @@ body {
 }
 
 .tableheadercolumn {
-  flex: 1;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
   padding: 5px;
+}
+
+.tableheadercolumn:hover > .sortarrow {
+  display: flex;
+}
+
+.rotate180 {
+  transform: rotate(180deg);
 }
 
 .tablebody {
