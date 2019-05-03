@@ -1,16 +1,34 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { Component } from 'react';
+import ButtonSort from './ButtonSort';
 
 const uuidv1 = require('uuid/v1');
 
-const TableHeader = ({ headers }) => {
-  const headerColumns = () =>
-    headers.map(header => (
-      <div className="tableheadercolumn" key={uuidv1()} id={header.id}>
-        {header.label}
-      </div>
-    ));
-  return <div className="tableheader">{headerColumns()}</div>;
-};
+export default class TableHeader extends Component {
+  constructor(props) {
+    super(props);
+    const { headers } = this.props;
+    this.state = {
+      headers,
+    };
+  }
 
-export default TableHeader;
+  render() {
+    const { sort, updateSortSettings } = this.props;
+    const { headers } = this.state;
+    return !headers.length ? (
+      <h1>Loading</h1>
+    ) : (
+      <div key={uuidv1()} className="tableheader">
+        {headers.map(header => (
+          <ButtonSort
+            key={uuidv1()}
+            header={header}
+            sort={sort}
+            updateSortSettings={updateSortSettings}
+          />
+        ))}
+      </div>
+    );
+  }
+}
