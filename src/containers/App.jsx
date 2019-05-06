@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import React, { Component } from 'react';
 import './App.css';
 import TableHeader from '../components/TableHeader';
@@ -18,25 +19,51 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const headers = [
-      { label: 'Fast.nr', id: 'id' },
-      { label: 'Namn / kvarter', id: 'title' },
-      { label: 'Adress', id: 'address' },
-      { label: 'FO', id: 'district' },
-      { label: 'Verksamhet', id: 'type' },
-    ];
+    // This might need a rework, not satisfied here
+    const that = this;
+    // Add eventlistener
+    window.addEventListener('message', function(event) {
+      // Create promise to recieve data
+      const FetchData = new Promise(function(resolve, reject) {
+        let counter = 0;
+        const checkForValues = setInterval(function() {
+          const { data } = event;
 
-    const data = TestData.map(marker => {
-      return {
-        id: marker.markerid.trim(),
-        title: marker.title.trim(),
-        address: `${marker.adress.trim()}, ${marker.postalnumber.trim()}, ${marker.postaltown.trim()}`.trim(),
-        district: marker.tags[0].trim(),
-        type: marker.type.trim(),
-      };
+          if (data !== null) {
+            resolve(data);
+            clearInterval(checkForValues);
+          } else {
+            if (counter > 10) {
+              reject(new Error('No data was recieved for 10 seconds'));
+              clearInterval(checkForValues);
+            }
+            counter += 1;
+          }
+        }, 200);
+      });
+
+      FetchData.then(eventdata => {
+        const data = eventdata.map(marker => {
+          return {
+            id: marker.markerid.trim(),
+            title: marker.title.trim(),
+            address: `${marker.adress.trim()}, ${marker.postalnumber.trim()}, ${marker.postaltown.trim()}`.trim(),
+            district: marker.tags[0].trim(),
+            type: marker.type.trim(),
+          };
+        });
+
+        const headers = [
+          { label: 'Fast.nr', id: 'id' },
+          { label: 'Namn / kvarter', id: 'title' },
+          { label: 'Adress', id: 'address' },
+          { label: 'FO', id: 'district' },
+          { label: 'Verksamhet', id: 'type' },
+        ];
+
+        that.setState({ headers, data });
+      });
     });
-
-    this.setState({ headers, data });
   }
 
   onSearchChange = event => {
