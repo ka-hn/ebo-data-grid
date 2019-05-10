@@ -3,7 +3,7 @@ import './App.css';
 import TableHeader from '../components/TableHeader';
 import TableTop from '../components/TableTop';
 import Table from '../components/Table';
-import TestData from '../dev/testdata-markers-sisab';
+/* import TestData from '../dev/testdata-markers-sisab'; */
 
 class App extends Component {
   constructor() {
@@ -13,30 +13,63 @@ class App extends Component {
       data: [],
       searchfield: '',
       sort: { order: 'asc', column: 'id' },
+      settings: [],
     };
     this.updateSortSettings = this.updateSortSettings.bind(this);
   }
 
   componentDidMount() {
-    const headers = [
-      { label: 'Fast.nr', id: 'id' },
-      { label: 'Namn / kvarter', id: 'title' },
-      { label: 'Adress', id: 'address' },
-      { label: 'FO', id: 'district' },
-      { label: 'Verksamhet', id: 'type' },
-    ];
+    const THAT = this;
 
-    const data = TestData.map(marker => {
-      return {
-        id: marker.markerid.trim(),
-        title: marker.title.trim(),
-        address: `${marker.adress.trim()}, ${marker.postalnumber.trim()}, ${marker.postaltown.trim()}`.trim(),
-        district: marker.tags[0].trim(),
-        type: marker.type.trim(),
-      };
+    window.addEventListener('message', function messageListener(event) {
+      // Create promise to recieve data
+      const FETCHDATA = new Promise(function fetchData(resolve, reject) {
+        let counter = 0;
+        const CHECKFORVALUES = setInterval(function checkForvalues() {
+          const { data } = event;
+          // Check that data and headers exist
+          if (
+            data.headers.length &&
+            data.rows.length &&
+            data.module_info.name === 'ebo-data-grid'
+          ) {
+            resolve(data);
+            clearInterval(CHECKFORVALUES);
+          } else {
+            if (counter > 10) {
+              reject(new Error('No data was recieved for 10 seconds'));
+              clearInterval(CHECKFORVALUES);
+            }
+            counter += 1;
+          }
+        }, 1000);
+      });
+
+      FETCHDATA.then(eventdata => {
+        const data = eventdata.rows.map(marker => {
+          return {
+            id: marker.markerid.trim(),
+            title: marker.title.trim(),
+            address: marker.adress.trim(),
+            postalnumber: marker.postalnumber.trim(),
+            postalrown: marker.postaltown.trim(),
+            completeaddress: `${marker.adress.trim()}, ${marker.postalnumber.trim()}, ${marker.postaltown.trim()}`.trim(),
+            district: marker.tags[0].trim(),
+            type: marker.type.trim(),
+            link: marker.sbolink.trim(),
+            origin: eventdata.eboTGMLOrigin.trim(),
+          };
+        });
+
+        const headers = eventdata.headers.map(header => {
+          return { label: header.label, id: header.id };
+        });
+
+        const { settings } = eventdata.module_info;
+
+        THAT.setState({ headers, data, settings });
+      });
     });
-
-    this.setState({ headers, data });
   }
 
   onSearchChange = event => {
@@ -47,9 +80,12 @@ class App extends Component {
     const { sort } = this.state;
     const { order } = sort;
     const key = sort.column;
-    // TODO: For some reason this stupid function returns "Lotterivägen 15, 129 32, Hägersten" as first object when sorting on address...
+
     return function compare(a, b) {
-      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+      if (
+        !Object.prototype.hasOwnProperty.call(a, key) ||
+        !Object.prototype.hasOwnProperty.call(b, key)
+      ) {
         return 0;
       }
 
@@ -73,8 +109,8 @@ class App extends Component {
   }
 
   render() {
-    const title = 'EBO Data Grid';
-    const { headers, data, searchfield, sort } = this.state;
+    let title = 'EBO Data Grid';
+    const { headers, data, searchfield, sort, settings } = this.state;
     const sortedData = data.sort(this.onSortChange());
     const filteredData = sortedData.filter(object => {
       return JSON.stringify(object)
@@ -82,11 +118,19 @@ class App extends Component {
         .includes(searchfield.toLowerCase());
     });
 
+    if (settings) {
+      title = settings.headertitle;
+    }
+
     return !data.length ? (
       <h1>Loading</h1>
     ) : (
       <div className="app">
-        <TableTop title={title} searchChange={this.onSearchChange} />
+        <TableTop
+          title={title}
+          searchChange={this.onSearchChange}
+          settings={settings}
+        />
         <div className="table">
           <TableHeader
             headers={headers}
