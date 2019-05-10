@@ -1,6 +1,6 @@
 body {
   background: #e2e9ef;
-  font-size: 15px;
+  font-size: 14px;
   font-family: Arial,sans-serif;
   color: #304760;
 }
@@ -90,6 +90,12 @@ body {
   display: flex;
   border-bottom: 1px solid white;
   align-items: center;
+  cursor: pointer;
+  padding: 4px, 24px, 4px, 24px;
+}
+
+.tablerow:hover {
+  background-color: rgba(66,180,230,.2);
 }
 
 .tablecell {
