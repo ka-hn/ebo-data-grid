@@ -5,7 +5,7 @@ const uuidv1 = require('uuid/v1');
 
 const Table = ({ data }) => {
   return (
-    <div className="tablebody">
+    <div className="tbody">
       {data.map(rowData => {
         return <TableRow key={uuidv1()} rowData={rowData} />;
       })}

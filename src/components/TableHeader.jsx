@@ -19,15 +19,17 @@ export default class TableHeader extends Component {
     return !headers.length ? (
       <h1>Loading</h1>
     ) : (
-      <div key={uuidv1()} className="tableheader">
-        {headers.map(header => (
-          <ButtonSort
-            key={uuidv1()}
-            header={header}
-            sort={sort}
-            updateSortSettings={updateSortSettings}
-          />
-        ))}
+      <div key={uuidv1()} className="thead">
+        <div className="tr">
+          {headers.map(header => (
+            <ButtonSort
+              key={uuidv1()}
+              header={header}
+              sort={sort}
+              updateSortSettings={updateSortSettings}
+            />
+          ))}
+        </div>
       </div>
     );
   }

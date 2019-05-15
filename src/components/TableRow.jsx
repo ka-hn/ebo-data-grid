@@ -20,7 +20,6 @@ class TableRow extends Component {
       } - ${rowData.title}`,
       link: rowData.link,
     };
-    console.log(redirectMessage);
 
     window.parent.frames[1].postMessage(redirectMessage, rowData.origin);
   };
@@ -28,12 +27,12 @@ class TableRow extends Component {
   render() {
     const { rowData } = this.state;
     return (
-      <div className="tablerow" onClick={this.onRowClick}>
-        <div className="tablecell">{rowData.id}</div>
-        <div className="tablecell">{rowData.title}</div>
-        <div className="tablecell">{rowData.completeaddress}</div>
-        <div className="tablecell">{rowData.district}</div>
-        <div className="tablecell">{rowData.type}</div>
+      <div className="tr" onClick={this.onRowClick}>
+        <div className="td">{rowData.id}</div>
+        <div className="td">{rowData.title}</div>
+        <div className="td">{rowData.completeaddress}</div>
+        <div className="td">{rowData.district}</div>
+        <div className="td">{rowData.type}</div>
       </div>
     );
   }
