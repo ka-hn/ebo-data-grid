@@ -2,7 +2,7 @@
   "name": "ebo-data-grid",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://ka-hn.github.io/ebo-data-grid/",
+  "homepage": "https://ka-hn.github.io/ebo-data-grid",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.8.6",
