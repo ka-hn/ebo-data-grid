@@ -31,11 +31,13 @@ export default class ButtonSort extends Component {
 
   render() {
     const { sort, header } = this.state;
+    const color = header.id === sort.column ? '#304760' : '#e2e9ef';
+
     return (
       <div
         role="button"
         key={uuidv1()}
-        className="tableheadercolumn"
+        className="th"
         onClick={this.changeSortDirection}
       >
         {header.label}
@@ -45,17 +47,14 @@ export default class ButtonSort extends Component {
           }
         >
           <svg
+            display="flex"
             xmlns="http://www.w3.org/2000/svg"
             width="17"
             height="17"
             viewBox="0 0 36 36"
             version="1.1"
           >
-            <path
-              stroke="rgba(130,147,166,1)"
-              fill="rgba(130,147,166,1)"
-              d="M31.06,11,18,24.06,4.94,11Z"
-            />
+            <path d="M31.06,11,18,24.06,4.94,11Z" stroke={color} fill={color} />
           </svg>
         </div>
       </div>
